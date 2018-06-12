@@ -25,9 +25,10 @@ function createMakananItem(makanan) {
 }
 
 function clearListWhenSearch() {
-    while(listMakanan.hasChildNodes()) {
-        listMakanan.removeChild(listMakanan.firstChild);
-    }
+    // while(listMakanan.hasChildNodes()) {
+    //     listMakanan.removeChild(listMakanan.firstChild);
+    // }
+    listMakanan.innerHTML = ''; // NOW I'VE FOUND THE SIMPLER SOLUTION!!!
 }
 
 function resetMakananFilter() {
@@ -49,3 +50,25 @@ buttonFilterMakan.onclick = function() { // add 'onclick' event to button
 }; // don't forget to put semicolon if using this style;
 
 resetFilter.addEventListener('click', resetMakananFilter); // another example to add event 'onclick' to button.
+
+// add menu
+
+var newMenu = document.querySelector('.newMenuField');
+var addNew = document.querySelector('.addNewMenuButton');
+var cancel = document.querySelector('.cancelButton');
+
+function addNewMenu() {
+    var menu = newMenu.value;
+    if(menu !== '') {
+        makanan.push(menu);
+        createMakananItem(menu);
+        newMenu.value = '';
+    }
+}
+
+function cancelAdd () {
+    newMenu.value = '';
+}
+
+addNew.addEventListener('click', addNewMenu);
+cancel.addEventListener('click', cancelAdd);
