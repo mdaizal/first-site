@@ -75,7 +75,7 @@ Ball.prototype.update = function() {
 
 Ball.prototype.collisionDetect = function() {
   for (var j = 0; j < balls.length; j++) {
-    if (!(this === balls[j])) {
+    if (this !== balls[j]) {
       var dx = this.x - balls[j].x;
       var dy = this.y - balls[j].y;
       var distance = Math.sqrt(dx * dx + dy * dy);
