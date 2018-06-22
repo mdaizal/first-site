@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shopping List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/styles.css" />
+</head>
+<body>
+    <header>
+        <h1>My Shopping List</h1>
+    </header>
+    <section>
+        <input type="text" placeholder="insert item to shop">
+        <button type="button">Add</button>
+        <ul></ul>
+    </section>
+    
+
+    <script>
+        /* 
+            Active learning: A dynamic shopping list
+            https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Manipulating_documents 
+        */
+
+        // get references
+        var ul = document.querySelector('ul');
+        var input = document.querySelector('input');
+        var button = document.querySelector('button');
+
+        function addItem() {
+            var newItem = input.value;
+            createItemList(newItem);
+            input.value = '';
+            input.focus();
+        }
+
+        function createItemList(newItem) {
+        
+            var list = document.createElement('li');
+            var span = document.createElement('span');
+            var delButton = document.createElement('button');
+            span.textContent = newItem;
+            delButton.innerText = 'Delete';
+            delButton.addEventListener('click', deleteItem);
+
+            // code below is solution from https://github.com/mdn/learning-area/blob/master/javascript/apis/document-manipulation/shopping-list-finished.html
+            /*
+            delButton.onclick = function(e) {
+                ul.removeChild(list);
+            };
+            */
+
+            list.appendChild(span);
+            list.appendChild(delButton);
+            ul.appendChild(list);
+        }
+
+        function deleteItem(e) {
+            // e.target is button. its parentNode is li and li's parentNode is ul. thus ul will remove e.target (button) ...
+            // ... parentNode which is li. and it will remove the respective li where the button resides.
+            // e.target.parentNode.parentNode.removeChild(e.target.parentNode); // done
+
+            // better code visual, and we already have reference on ul above so use it.
+            var li = e.target.parentNode; // get the parent for the delete button (li)
+            ul.removeChild(li);
+        }
+
+        button.addEventListener('click', addItem);
+
+    </script>
+</body>
+</html>

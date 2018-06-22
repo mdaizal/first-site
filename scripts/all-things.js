@@ -20,7 +20,10 @@ function filterMakanan(input) {
 
 function createMakananItem(makanan) {
     var createList = document.createElement('li');
+    var delButton = document.createElement('button');
+    delButton.innerText = 'Delete';
     createList.textContent = makanan;
+    createList.appendChild(delButton);
     listMakanan.appendChild(createList);
 }
 
