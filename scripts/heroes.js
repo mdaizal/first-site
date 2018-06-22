@@ -25,7 +25,7 @@ fetch(requestURL).then(function(res) {
     console.log('Hometown:', heroes.homeTown);
     console.log('Year established:', heroes.formed);
     console.log('Secret base:', heroes.secretBase);
-    console.log('Still active:', (heroes.active)? 'Active' : 'Disbanded');
+    console.log('Squad status:', (heroes.active)? 'Active' : 'Disbanded');
 
     console.log('Team members:');
     var members = heroes.members;
