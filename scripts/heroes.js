@@ -14,6 +14,39 @@ request.onload = function() {
     showHeroes(superHeroes);
 };
 
+// modern way to fetch json data
+// https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data
+// open browser's console to view results
+fetch(requestURL).then(function(res) {
+  res.json().then(function(res){
+    var heroes = res;
+    // console.log(heroes); // uncomment to view fetched json data
+    console.log('Squad name:', heroes.squadName);
+    console.log('Hometown:', heroes.homeTown);
+    console.log('Year established:', heroes.formed);
+    console.log('Secret base:', heroes.secretBase);
+    console.log('Still active:', (heroes.active)? 'Active' : 'Disbanded');
+
+    console.log('Team members:');
+    var members = heroes.members;
+    for (var i = 0; i < members.length; i++) {
+      console.log('--->', members[i].name);
+    }
+
+    console.log('Team members profiles:');
+    for (var j = 0; j < members.length; j++) {
+      console.log(members[j].name.toUpperCase());
+      console.log('   Age:', members[j].age);
+      console.log('   Secret Identity:', members[j].secretIdentity);
+      console.log('   Super powers:');
+      var powers = members[j].powers;
+      for (var k = 0; k < powers.length; k++) {
+        console.log('     ->', powers[k]);
+      }
+    }
+  });
+});
+
 function populateHeader(jsonObj) {
     var myH1 = document.createElement('h1');
     myH1.textContent = jsonObj.squadName; //jsonObj['squadName'];
