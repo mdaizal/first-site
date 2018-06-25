@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Learn Canvas</title>
+    <!-- https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Drawing_graphics -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>-->
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas class="myCanvas">
+        <p>add suitable fallback message here.</p>
+    </canvas>
+
+
+    <script>
+        var canvas = document.querySelector('.myCanvas');
+        var width = canvas.width = window.innerWidth;
+        var height = canvas.height = window.innerHeight;
+
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'rgb(0,0,0)';
+        ctx.fillRect(0, 0, width, height);
+
+        // Drawing paths
+
+        // -- drawing a downward triangle --
+        ctx.fillStyle = 'rgb(255,0,0)';
+        ctx.beginPath();
+        ctx.moveTo(50, 50);
+        ctx.lineTo(150, 50);
+        var triHeight = 50 * Math.tan(degToRad(60));
+        ctx.lineTo(100, 50 + triHeight);
+        ctx.lineTo(50, 50);
+        ctx.fill();
+
+        // -- drawing a circle --
+        ctx.fillStyle = 'rgb(0, 0, 255)';
+        ctx.beginPath();
+        ctx.arc(150, 106, 50, degToRad(0), degToRad(360), false);
+        ctx.fill();
+
+        // PACMAN!!!
+        ctx.fillStyle = 'yellow';
+        ctx.beginPath();
+        ctx.arc(200, 106, 50, degToRad(-45), degToRad(45), true);
+        ctx.lineTo(200, 106);
+        ctx.fill();
+
+        // PACMAN'S EYE
+        ctx.fillStyle = 'rgb(0, 0, 0)';
+        ctx.beginPath();
+        ctx.arc(205, 70, 10, degToRad(0), degToRad(360), false);
+        ctx.fill();
+
+        function degToRad(degrees) {
+            return degrees * Math.PI / 180;
+        };
+
+        // TEXT
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 1;
+        ctx.font = '36px arial';
+        ctx.strokeText('Canvas text', 50, 45);
+
+        ctx.fillStyle = 'red';
+        ctx.font = '48px georgia';
+        ctx.fillText('Pacman on canvas', 250, 118);
+
+        // create rectangles
+        // ctx.fillStyle = 'rgb(255,0,0)';
+        // ctx.fillRect(50, 50, 100, 150);
+
+        // ctx.fillStyle = 'rgb(0, 255, 0)';
+        // ctx.fillRect(75, 75, 100, 100);
+
+        // ctx.fillStyle = 'rgba(255, 0, 255, 0.75)';
+        // ctx.fillRect(25, 100, 175, 50);
+
+        // create rectangle with only outline
+        // ctx.strokeStyle = 'rgb(255, 255, 255)';
+        // ctx.lineWidth = 5;
+        // ctx.strokeRect(25, 25, 175, 200);
+    </script>
+</body>
+</html>
