@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Learn Canvas - Loops and Animations</title>
+    <!-- https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Drawing_graphics -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>-->
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas class="myCanvas">
+        <p>add suitable fallback message here.</p>
+    </canvas>
+
+
+    <script>
+        var canvas = document.querySelector('.myCanvas');
+        var width = canvas.width = window.innerWidth;
+        var height = canvas.height = window.innerHeight;
+
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'rgb(0,0,0)';
+        ctx.fillRect(0, 0, width, height);
+
+        // loops tutorials
+        ctx.translate(width/2, height/2); // This causes the coordinate origin (0, 0) to be moved to the center of the canvas, rather than being at the top left corner. - MDN
+        
+        function degToRad(degrees) {
+            return degrees * Math.PI / 180;
+        };
+
+        function rand(min, max) {
+            return Math.floor(Math.random() * (max-min+1)) + (min);
+        }
+
+        var length = 250;
+        var moveOffset = 20;
+
+        // comment this loop to make sure animation tutorial below got the same results like MDN's one.
+        for(var i = 0; i < length; i++) {
+            ctx.fillStyle = 'rgba(' + (255-length) + ', 0, ' + (255-length) + ', 0.9)';
+            ctx.beginPath();
+            ctx.moveTo(moveOffset, moveOffset);
+            ctx.lineTo(moveOffset+length, moveOffset);
+            var triHeight = length/2 * Math.tan(degToRad(60));
+            ctx.lineTo(moveOffset+(length/2), moveOffset+triHeight);
+            ctx.lineTo(moveOffset, moveOffset);
+            ctx.fill();
+
+            length--;
+            moveOffset += 0.7;
+            ctx.rotate(degToRad(5));
+        }
+
+        // animation tutorial
+        var image = new Image();
+        image.src = 'images/walk-right.png';
+        image.onload = draw;
+
+        var sprite = 0;
+        var posX = 0;
+
+        // comment this func to see the actual loop result above
+        function draw() {
+            ctx.fillRect(-(width/2), -(height/2), width, height);
+            ctx.drawImage(image, (sprite*102), 0, 102, 148, 0+posX, -74, 102, 148);
+
+            if (posX % 13 === 0) {
+                if (sprite === 5) {
+                    sprite = 0;
+                } else {
+                    sprite++;
+                }
+            }
+
+            if(posX > width/2) {
+                newStartPos = -((width/2) + 102);
+                posX = Math.ceil(newStartPos / 13) * 13;
+                console.log(posX);
+            } else {
+                posX += 2;
+            }
+            
+            requestAnimationFrame(draw);
+        }
+    </script>
+</body>
+</html>

@@ -61,6 +61,7 @@
         ctx.arc(205, 70, 10, degToRad(0), degToRad(360), false);
         ctx.fill();
 
+        // Math.tan or arc() needs a radian
         function degToRad(degrees) {
             return degrees * Math.PI / 180;
         };
@@ -74,6 +75,14 @@
         ctx.fillStyle = 'red';
         ctx.font = '48px georgia';
         ctx.fillText('PACMAN', 250, 118);
+
+        // Draw image
+        var image = new Image();
+        image.src = 'images/firefox.png';
+        // we need to make sure the image file has been loaded first, otherwise the code will fail. - MDN
+        image.onload = function() {
+            ctx.drawImage(image, 20, 20, 185, 175, 50, 160, 185, 175);
+        }
 
         // create rectangles
         // ctx.fillStyle = 'rgb(255,0,0)';
